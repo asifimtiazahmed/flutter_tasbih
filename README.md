@@ -1,10 +1,11 @@
 # ultimate_tasbih_app
 
-A new Flutter application.
+The Ultimate Tasbih App tries to bring together all the best aspects of the variety of tasbih apps out there, and consolidate them onto one app.
+Including its own features! 
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+I will later add the animations and other details here. 
 
 A few resources to get you started if this is your first Flutter project:
 
