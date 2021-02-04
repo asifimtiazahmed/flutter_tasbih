@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:ultimate_tasbih_app/widgets/appBar.dart';
 
 import '../services/const.dart';
@@ -77,12 +78,17 @@ class _MainScreenState extends State<MainScreen> {
                     height: mediaQuery.size.height * 0.20,
                   ),
 
-                  RaisedButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(100)
-                    ),
-                    onPressed: ()=> null,
-                  ),
+                  CircleAvatar()
+                  // RaisedButton(
+                  //   shape: CircleBorder(
+                  //      side: BorderSide(
+                  //        width: 3.0,
+                  //        color: Colors.deepOrangeAccent,
+                  //        style: BorderStyle.none,
+                  //      ),
+                  //   ),
+                  //   onPressed: ()=> null,
+                  // ),
 
 
                 ],
