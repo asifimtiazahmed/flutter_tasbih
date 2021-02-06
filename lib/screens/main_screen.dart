@@ -110,3 +110,4 @@ class _MainScreenState extends State<MainScreen> {
 // TODO: Add in Settings left handed or Right handed
 // TODO: Import Google font for most typing, counter
 // TODO: implement the screen size MediaQery for responsiveness
+// TODO: Design implement pastel colors for soothing eye
