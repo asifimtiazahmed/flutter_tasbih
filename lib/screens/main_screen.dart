@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ultimate_tasbih_app/widgets/appBar.dart';
 
+import '../widgets/circle_counter.dart';
+
 import '../services/const.dart';
 
 class MainScreen extends StatefulWidget {
@@ -57,6 +59,7 @@ class _MainScreenState extends State<MainScreen> {
         body: Container(
           color: cornSilk,
           child: Row(
+
             children: [
               Container( //This will be the completion bar
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -66,14 +69,7 @@ class _MainScreenState extends State<MainScreen> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 50, 20, 20),
-                    child: CircleAvatar(
-                      radius: mediaQuery.size.width *0.70/2,
-                      child: Text('Counter Display'),
-                      backgroundColor: liverDogs,
-                    ),
-                  ),
+                  CircleCounter(),
                   SizedBox(
                     height: mediaQuery.size.height * 0.20,
                   ),
