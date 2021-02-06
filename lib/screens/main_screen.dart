@@ -111,3 +111,4 @@ class _MainScreenState extends State<MainScreen> {
 // TODO: Import Google font for most typing, counter
 // TODO: implement the screen size MediaQery for responsiveness
 // TODO: Design implement pastel colors for soothing eye
+// TODO: Need to find a way to get frosted glass look for some of the slivers
