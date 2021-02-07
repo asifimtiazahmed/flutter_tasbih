@@ -65,8 +65,7 @@ class _MainScreenState extends State<MainScreen> {
                 margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 width: mediaQuery.size.width * 0.10,
                 color: fawn,
-              ),
-              Column(
+              ), Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   CircleCounter(),
