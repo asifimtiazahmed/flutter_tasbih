@@ -108,4 +108,4 @@ class _MainScreenState extends State<MainScreen> {
 // TODO: Design implement pastel colors for soothing eye
 // TODO: Need to find a way to get frosted glass look for some of the slivers
 // TODO: implement better buttons, maybe think about velocityX??
-//TODO: Start making a routine that fits what you do -
+//TODO: Start making a routine that fits what you do - So edit the current one to reflect
