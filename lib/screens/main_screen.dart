@@ -73,7 +73,9 @@ class _MainScreenState extends State<MainScreen> {
                     height: mediaQuery.size.height * 0.20,
                   ),
 
-                  CircleAvatar()
+                  CircleAvatar(
+                    child: Text('Hi'),
+                  ),
                   // RaisedButton(
                   //   shape: CircleBorder(
                   //      side: BorderSide(
