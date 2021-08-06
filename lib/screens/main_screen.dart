@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:ultimate_tasbih_app/widgets/appBar.dart';
 
 import '../widgets/circle_counter.dart';
@@ -13,7 +14,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
   final PreferredSizeWidget utAppBar = AppBar(
     leading: Builder(
       builder: (BuildContext context) {
@@ -52,46 +52,47 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
+    final mediaQuery = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         appBar: utAppBar,
-        body: Container(
-          color: cornSilk,
-          child: Row(
-
-            children: [
-              Container( //This will be the completion bar
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                width: mediaQuery.size.width * 0.10,
-                color: fawn,
-              ), Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CircleCounter(),
-                  SizedBox(
-                    height: mediaQuery.size.height * 0.20,
+        backgroundColor: cornSilk,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 30.0),
+              child: Center(
+                child: Stack(children: [
+                  Container(
+                    width: 200,
+                    height: 200,
+                    alignment: Alignment.center,
+                    child: Text(
+                      '500',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 35,
+                          color: kombuGreen),
+                    ),
                   ),
-
-                  CircleAvatar(
-                    child: Text('Hi'),
+                  Container(
+                    width: 200,
+                    height: 200,
+                    child: CircularProgressIndicator(
+                      value: 0.70,
+                      strokeWidth: 30,
+                      color: kombuGreen,
+                    ),
                   ),
-                  // RaisedButton(
-                  //   shape: CircleBorder(
-                  //      side: BorderSide(
-                  //        width: 3.0,
-                  //        color: Colors.deepOrangeAccent,
-                  //        style: BorderStyle.none,
-                  //      ),
-                  //   ),
-                  //   onPressed: ()=> null,
-                  // ),
-
-
-                ],
+                ]),
               ),
-            ],
-          ),
+            ),
+            CircleCounter(),
+            SizedBox(
+              height: mediaQuery.height * 0.20,
+            ),
+          ],
         ),
       ),
     );
