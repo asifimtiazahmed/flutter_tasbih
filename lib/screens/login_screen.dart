@@ -9,6 +9,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height * 0.45;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -36,13 +37,20 @@ class LoginScreen extends StatelessWidget {
                       colors: [kombuGreen, oliveGreen.withOpacity(0.9)]),
                 ),
                 width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.35,
+                height: height * 0.45,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 100.0, left: 40),
-                  child: Text(
-                    'Login',
-                    style: TextStyle(
-                        fontSize: 40, fontWeight: FontWeight.w700, color: fawn),
+                  padding: EdgeInsets.only(top: height * 0.35),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      'Login',
+                      style: TextStyle(
+                          fontFamily: 'Rodja',
+                          color: fawn,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 55,
+                          letterSpacing: 2),
+                    ),
                   ),
                 ),
               ),
