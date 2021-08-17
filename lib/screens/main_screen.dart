@@ -9,6 +9,8 @@ import '../widgets/circle_counter.dart';
 import '../services/const.dart';
 
 class MainScreen extends StatefulWidget {
+  static const String routeName = 'mainScreen';
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
