@@ -73,7 +73,7 @@ class _LoginFormState extends State<LoginForm> {
           GradientButton(
             width: MediaQuery.of(context).size.width * 0.5,
             height: 50.0,
-            text: 'Register',
+            text: 'Sign Up',
             onPressed: () {
               Navigator.pushNamed(context, RegisterScreen.routeName);
             },

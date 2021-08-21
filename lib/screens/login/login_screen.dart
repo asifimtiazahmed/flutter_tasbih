@@ -12,6 +12,10 @@ class LoginScreen extends StatelessWidget {
     double height = MediaQuery.of(context).size.height * 0.45;
     return Scaffold(
       extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
       body: Container(
         height: height * 2.5,
         decoration: BoxDecoration(

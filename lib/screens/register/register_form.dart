@@ -64,22 +64,7 @@ class _RegisterFormState extends State<RegisterForm> {
           GradientButton(
             width: MediaQuery.of(context).size.width * 0.5,
             height: 50.0,
-            text: 'Login',
-            onPressed: () {},
-          ),
-          SizedBox(height: 20),
-          GradientButton(
-            width: MediaQuery.of(context).size.width * 0.5,
-            height: 50.0,
             text: 'Register',
-            onPressed: () {},
-          ),
-          TextButton(
-            child: Text(
-              'Forgot password?',
-              style: TextStyle(
-                  color: kombuGreen, fontWeight: FontWeight.w500, fontSize: 18),
-            ),
             onPressed: () {},
           ),
         ],
