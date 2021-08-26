@@ -1,6 +1,9 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:ultimate_tasbih_app/services/authentication.dart';
 import 'package:ultimate_tasbih_app/services/const.dart';
 import 'package:ultimate_tasbih_app/widgets/gradient_button.dart';
+import 'package:provider/provider.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({Key? key}) : super(key: key);
@@ -11,51 +14,101 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController emailTextController = TextEditingController();
+  final TextEditingController displayTextController = TextEditingController();
+  final TextEditingController passwordTextController = TextEditingController();
 
-  String? validateEmail(value) {
-    Pattern pattern =
-        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-        r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
-        r"{0,253}[a-zA-Z0-9])?)*$";
-    RegExp regex = new RegExp(pattern.toString());
-    if (!regex.hasMatch(value) || value == null)
-      return 'Enter a valid email address';
-    else
-      return 'Whats this?';
+  @override
+  void initState() {
+    Provider.of<ApplicationState>(context, listen: false);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    emailTextController.dispose();
+    passwordTextController.dispose();
+    displayTextController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    var _applicationLogin = Provider.of<ApplicationState>(context);
     return Form(
+      key: _formKey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
             child: TextFormField(
-              controller: emailController,
+              controller: displayTextController,
               decoration: InputDecoration(
-                icon: Icon(Icons.email),
-                labelText: 'Email',
+                icon: Icon(
+                  FluentIcons.leaf_three_20_filled,
+                  color: oliveGreen,
+                ),
+                labelText: 'Display Name',
               ),
-              keyboardType: TextInputType.emailAddress,
-              validator: validateEmail,
+              keyboardType: TextInputType.text,
+              validator: _applicationLogin.validateDisplayName,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
             child: TextFormField(
-              controller: passwordController,
+              controller: emailTextController,
               decoration: InputDecoration(
-                icon: Icon(Icons.lock),
-                labelText: 'Password',
+                icon: Icon(
+                  Icons.email,
+                  color: oliveGreen,
+                ),
+                labelText: 'Email',
               ),
-              obscureText: true,
-              obscuringCharacter: '■',
               keyboardType: TextInputType.emailAddress,
-              validator: validateEmail,
+              validator: _applicationLogin.validateEmail,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: passwordTextController,
+                      decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.lock,
+                          color: oliveGreen,
+                        ),
+                        labelText: 'Password',
+                      ),
+                      obscureText: _applicationLogin.isPasswordObscured,
+                      obscuringCharacter: '■',
+                      keyboardType: TextInputType.emailAddress,
+                      validator: _applicationLogin.validatePassword,
+                    ),
+                  ),
+                  IconButton(
+                    icon: _applicationLogin.isPasswordObscured
+                        ? Icon(
+                            FluentIcons.eye_hide_24_filled,
+                            color: oliveGreen,
+                          )
+                        : Icon(
+                            FluentIcons.eye_show_24_filled,
+                            color: oliveGreen,
+                          ),
+                    onPressed: () {
+                      _applicationLogin.showPassword();
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(
@@ -65,7 +118,14 @@ class _RegisterFormState extends State<RegisterForm> {
             width: MediaQuery.of(context).size.width * 0.5,
             height: 50.0,
             text: 'Register',
-            onPressed: () {},
+            onPressed: () {
+              _applicationLogin.registerAccount(emailTextController.text,
+                  passwordTextController.text, displayTextController.text, (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('${e.message.toString()}')),
+                );
+              });
+            },
           ),
         ],
       ),
