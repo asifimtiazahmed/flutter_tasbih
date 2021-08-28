@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:ultimate_tasbih_app/screens/register/register_form.dart';
+import 'package:ultimate_tasbih_app/screens/login/forgot_password_form.dart';
 import 'package:ultimate_tasbih_app/services/const.dart';
 import 'package:ultimate_tasbih_app/widgets/login_background.dart';
 
-class RegisterScreen extends StatelessWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
-  static const String routeName = 'registerScreen';
+class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
+  static const String routeName = 'forgotPasswordScreen';
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height * 0.45;
     return LoginBackground(
-      title: 'Register',
-      child: RegisterForm(),
+      title: 'Reset',
+      child: ForgotPasswordForm(),
       height: height,
       isAppBar: true,
       leading: IconButton(

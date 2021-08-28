@@ -8,6 +8,8 @@ enum ApplicationLoginState {
   register,
   password,
   loggedIn,
+  loggedInAnonymous,
+  reset,
 }
 
 class ApplicationState extends ChangeNotifier {
@@ -22,6 +24,16 @@ class ApplicationState extends ChangeNotifier {
 
   ApplicationLoginState get loginState => _loginState;
 
+  void showSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(text),
+        //duration: Duration(milliseconds: 500),
+      ),
+    );
+    notifyListeners();
+  }
+
   Future<void> init() async {
     await Firebase.initializeApp();
 
@@ -35,6 +47,38 @@ class ApplicationState extends ChangeNotifier {
       }
       notifyListeners();
     });
+  }
+
+  Future<void> resetPassword(String email,
+      void Function(FirebaseAuthException e) errorCallback) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      _loginState = ApplicationLoginState.reset;
+    } on FirebaseAuthException catch (e) {
+      errorCallback(e);
+    }
+    notifyListeners();
+  }
+
+  void signInAsGuestUser(
+    BuildContext context,
+    void Function(FirebaseAuthException e) errorCallback,
+  ) async {
+    try {
+      await FirebaseAuth.instance.signInAnonymously();
+      //print(userCredential.user);
+    } on FirebaseAuthException catch (e) {
+      errorCallback(e);
+    }
+    print('signed in as anonymous');
+    _loginState = ApplicationLoginState.loggedInAnonymous;
+    notifyListeners();
+  }
+
+  Future<void> getCurrentUser() async {
+    {
+      var user = await FirebaseAuth.instance.currentUser;
+    }
   }
 
   void startLoginFlow() {
@@ -121,7 +165,7 @@ class ApplicationState extends ChangeNotifier {
     }
   }
 
-  get isPasswordObscured => _isPasswordObscured;
+  bool get isPasswordObscured => _isPasswordObscured;
 
   void showPassword() {
     (_isPasswordObscured)

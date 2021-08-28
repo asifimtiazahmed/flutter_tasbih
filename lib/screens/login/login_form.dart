@@ -1,10 +1,14 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:ultimate_tasbih_app/screens/login/forgot_password_screen.dart';
+import 'package:ultimate_tasbih_app/screens/main_screen.dart';
 import 'package:ultimate_tasbih_app/screens/register/register_screen.dart';
 import 'package:ultimate_tasbih_app/services/authentication.dart';
 import 'package:ultimate_tasbih_app/services/const.dart';
 import 'package:ultimate_tasbih_app/widgets/gradient_button.dart';
 import 'package:provider/provider.dart';
+
+import 'login_screen.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({Key? key}) : super(key: key);
@@ -98,30 +102,42 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 30,
           ),
           GradientButton(
             width: MediaQuery.of(context).size.width * 0.5,
             height: 50.0,
-            text: 'Login',
+            text: (_applicationLogin.loginState ==
+                        ApplicationLoginState.loggedIn ||
+                    _applicationLogin.loginState ==
+                        ApplicationLoginState.loggedInAnonymous)
+                ? 'Sign out'
+                : 'Log in',
             onPressed: () {
               if (_formKey.currentState!.validate() &&
                   _applicationLogin.loginState ==
                       ApplicationLoginState.password) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('The username already exists')),
-                );
+                _applicationLogin.showSnackBar(
+                    context, 'username already exists');
                 return;
               } else if (_formKey.currentState!.validate()) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Logging in')),
-                );
+                _applicationLogin.showSnackBar(context, 'Logging in');
                 _applicationLogin.signInWithEmailAndPassword(
                     emailTextController.text, passwordTextController.text, (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('${e.message.toString()}')),
-                  );
+                  _applicationLogin.showSnackBar(context, e.message.toString());
                 });
+                if (_applicationLogin.loginState ==
+                    ApplicationLoginState.loggedIn) {
+                  emailTextController.clear();
+                  passwordTextController.clear();
+                  Navigator.pushNamed(context, MainScreen.routeName);
+                }
+              } else if (_applicationLogin.loginState ==
+                      ApplicationLoginState.loggedIn ||
+                  _applicationLogin.loginState ==
+                      ApplicationLoginState.loggedInAnonymous) {
+                _applicationLogin.signOut();
+                _applicationLogin.showSnackBar(context, 'Signed out');
               }
             },
           ),
@@ -144,29 +160,30 @@ class _LoginFormState extends State<LoginForm> {
                     fontWeight: FontWeight.w500,
                     fontSize: 18),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
+              },
             ),
           ),
           TextButton(
-            child:
-                _applicationLogin.loginState == ApplicationLoginState.loggedIn
-                    ? Text(
-                        'Use as Guest - Logged In',
-                        style: TextStyle(
-                            color: kombuGreen,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 18,
-                            letterSpacing: 1.1),
-                      )
-                    : Text('Use as Guest - Logged Out',
-                        style: TextStyle(
-                            color: kombuGreen,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 18,
-                            letterSpacing: 1.1)),
+            child: Text(
+              'Use as Guest',
+              style: TextStyle(
+                  color: kombuGreen,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 18,
+                  letterSpacing: 1.1),
+            ),
             onPressed: () {
-              _applicationLogin.signOut();
-              // Navigator.pushNamed(context, MainScreen.routeName);
+              _applicationLogin.signInAsGuestUser(context, (e) {
+                _applicationLogin.showSnackBar(context, e.message.toString());
+              });
+              if (_applicationLogin.loginState ==
+                  ApplicationLoginState.loggedInAnonymous) {
+                Navigator.pushNamed(context, MainScreen.routeName);
+                _applicationLogin.showSnackBar(
+                    context, 'Signed in as Anon User');
+              }
             },
           ),
         ],

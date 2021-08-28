@@ -121,9 +121,7 @@ class _RegisterFormState extends State<RegisterForm> {
             onPressed: () {
               _applicationLogin.registerAccount(emailTextController.text,
                   passwordTextController.text, displayTextController.text, (e) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('${e.message.toString()}')),
-                );
+                _applicationLogin.showSnackBar(context, e.message.toString());
               });
             },
           ),
