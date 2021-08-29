@@ -126,7 +126,7 @@ class _RegisterFormState extends State<RegisterForm> {
               if (_applicationLogin.loginState ==
                   ApplicationLoginState.register) {
                 _applicationLogin.showSnackBar(context,
-                    'Registered new account ${emailTextController.text}');
+                    'Registered new account ${emailTextController.text}. An email verification has been sent to this address');
                 emailTextController.clear();
                 displayTextController.clear();
                 passwordTextController.clear();

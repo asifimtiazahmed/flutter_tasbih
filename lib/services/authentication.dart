@@ -118,10 +118,11 @@ class ApplicationState extends ChangeNotifier {
       String displayName,
       void Function(FirebaseAuthException e) errorCallback) async {
     try {
-      var credential = await FirebaseAuth.instance
+      UserCredential credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       await credential.user!.updateDisplayName(displayName);
       _loginState = ApplicationLoginState.register;
+      sendEmailVerificationLink();
     } on FirebaseAuthException catch (e) {
       errorCallback(e);
     }
@@ -140,7 +141,10 @@ class ApplicationState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> sendEmailVerificationLink() async {}
+  void sendEmailVerificationLink() {
+    var user = FirebaseAuth.instance.currentUser;
+    user?.sendEmailVerification();
+  }
 
   void signOut() {
     FirebaseAuth.instance.signOut();
