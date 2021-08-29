@@ -4,7 +4,7 @@ import 'package:ultimate_tasbih_app/widgets/login_background.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
-  static const String routeName = '/';
+  static const String routeName = 'loginScreen';
 
   @override
   Widget build(BuildContext context) {

@@ -21,7 +21,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   void initState() {
-    Provider.of<ApplicationState>(context, listen: false);
+    // Provider.of<ApplicationState>(context, listen: false);
     super.initState();
   }
 
@@ -118,11 +118,20 @@ class _RegisterFormState extends State<RegisterForm> {
             width: MediaQuery.of(context).size.width * 0.5,
             height: 50.0,
             text: 'Register',
-            onPressed: () {
-              _applicationLogin.registerAccount(emailTextController.text,
+            onPressed: () async {
+              await _applicationLogin.registerAccount(emailTextController.text,
                   passwordTextController.text, displayTextController.text, (e) {
                 _applicationLogin.showSnackBar(context, e.message.toString());
               });
+              if (_applicationLogin.loginState ==
+                  ApplicationLoginState.register) {
+                _applicationLogin.showSnackBar(context,
+                    'Registered new account ${emailTextController.text}');
+                emailTextController.clear();
+                displayTextController.clear();
+                passwordTextController.clear();
+                Navigator.of(context).pop();
+              }
             },
           ),
         ],

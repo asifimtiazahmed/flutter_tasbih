@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:ultimate_tasbih_app/widgets/appBar.dart';
+import 'package:ultimate_tasbih_app/services/authentication.dart';
+import 'package:provider/provider.dart';
+import 'package:ultimate_tasbih_app/widgets/main_menu_drawer.dart';
 
 import '../widgets/circle_counter.dart';
 
@@ -40,23 +42,30 @@ class _MainScreenState extends State<MainScreen> {
     shadowColor: oliveGreen,
     elevation: 9,
     actions: [
-      IconButton(
-        padding: EdgeInsets.fromLTRB(0, 0, 18, 0),
-        icon: Icon(
-          Icons.account_circle,
-          size: iconSize,
-        ),
-        color: cornSilk,
-        onPressed: () => null,
+      Builder(
+        builder: (BuildContext context) {
+          return IconButton(
+            icon: const Icon(Icons.account_circle,
+                color: cornSilk, size: iconSize),
+            onPressed: () {
+              print('pressed');
+              Scaffold.of(context).openEndDrawer();
+            },
+            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+          );
+        },
       ),
     ],
   );
 
   @override
   Widget build(BuildContext context) {
+    var _applicationState = Provider.of<ApplicationState>(context);
     final mediaQuery = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        drawer: MainDrawer(),
+        endDrawer: MainDrawer(),
         appBar: utAppBar,
         backgroundColor: cornSilk,
         body: Column(
@@ -90,7 +99,7 @@ class _MainScreenState extends State<MainScreen> {
                 ]),
               ),
             ),
-            CircleCounter(),
+            CircleCounterButton(),
             SizedBox(
               height: mediaQuery.height * 0.20,
             ),

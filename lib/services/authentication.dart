@@ -75,9 +75,10 @@ class ApplicationState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getCurrentUser() async {
+  Future<User?> getCurrentUser() async {
     {
-      var user = await FirebaseAuth.instance.currentUser;
+      var user = FirebaseAuth.instance.currentUser;
+      return user;
     }
   }
 
@@ -111,29 +112,40 @@ class ApplicationState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void registerAccount(String email, String password, String displayName,
+  Future<void> registerAccount(
+      String email,
+      String password,
+      String displayName,
       void Function(FirebaseAuthException e) errorCallback) async {
     try {
       var credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       await credential.user!.updateDisplayName(displayName);
+      _loginState = ApplicationLoginState.register;
     } on FirebaseAuthException catch (e) {
       errorCallback(e);
     }
+    notifyListeners();
   }
 
-  void signInWithEmailAndPassword(String email, String password,
+  Future<void> signInWithEmailAndPassword(String email, String password,
       void Function(FirebaseAuthException e) errorCallback) async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+      _loginState = ApplicationLoginState.loggedIn;
     } on FirebaseAuthException catch (e) {
       errorCallback(e);
     }
+    notifyListeners();
   }
+
+  Future<void> sendEmailVerificationLink() async {}
 
   void signOut() {
     FirebaseAuth.instance.signOut();
+    _loginState = ApplicationLoginState.loggedOut;
+    notifyListeners();
   }
 
   String? validateEmail(value) {

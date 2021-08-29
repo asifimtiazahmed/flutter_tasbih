@@ -8,8 +8,6 @@ import 'package:ultimate_tasbih_app/services/const.dart';
 import 'package:ultimate_tasbih_app/widgets/gradient_button.dart';
 import 'package:provider/provider.dart';
 
-import 'login_screen.dart';
-
 class LoginForm extends StatefulWidget {
   LoginForm({Key? key}) : super(key: key);
   static const String routeName = 'loginForm';
@@ -22,12 +20,6 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailTextController = TextEditingController();
   final TextEditingController passwordTextController = TextEditingController();
-
-  @override
-  void initState() {
-    Provider.of<ApplicationState>(context, listen: false);
-    super.initState();
-  }
 
   @override
   void dispose() {
@@ -113,7 +105,7 @@ class _LoginFormState extends State<LoginForm> {
                         ApplicationLoginState.loggedInAnonymous)
                 ? 'Sign out'
                 : 'Log in',
-            onPressed: () {
+            onPressed: () async {
               if (_formKey.currentState!.validate() &&
                   _applicationLogin.loginState ==
                       ApplicationLoginState.password) {
@@ -122,7 +114,7 @@ class _LoginFormState extends State<LoginForm> {
                 return;
               } else if (_formKey.currentState!.validate()) {
                 _applicationLogin.showSnackBar(context, 'Logging in');
-                _applicationLogin.signInWithEmailAndPassword(
+                await _applicationLogin.signInWithEmailAndPassword(
                     emailTextController.text, passwordTextController.text, (e) {
                   _applicationLogin.showSnackBar(context, e.message.toString());
                 });
@@ -130,7 +122,7 @@ class _LoginFormState extends State<LoginForm> {
                     ApplicationLoginState.loggedIn) {
                   emailTextController.clear();
                   passwordTextController.clear();
-                  Navigator.pushNamed(context, MainScreen.routeName);
+                  Navigator.pushReplacementNamed(context, MainScreen.routeName);
                 }
               } else if (_applicationLogin.loginState ==
                       ApplicationLoginState.loggedIn ||
@@ -182,7 +174,7 @@ class _LoginFormState extends State<LoginForm> {
                   ApplicationLoginState.loggedInAnonymous) {
                 Navigator.pushNamed(context, MainScreen.routeName);
                 _applicationLogin.showSnackBar(
-                    context, 'Signed in as Anon User');
+                    context, 'Signed in as guest user');
               }
             },
           ),
