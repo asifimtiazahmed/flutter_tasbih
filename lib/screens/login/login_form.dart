@@ -1,7 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:ultimate_tasbih_app/screens/login/forgot_password_screen.dart';
-import 'package:ultimate_tasbih_app/screens/main_screen.dart';
+import 'package:ultimate_tasbih_app/screens/counter/counter_screen.dart';
 import 'package:ultimate_tasbih_app/screens/register/register_screen.dart';
 import 'package:ultimate_tasbih_app/services/authentication.dart';
 import 'package:ultimate_tasbih_app/services/const.dart';
@@ -122,7 +122,8 @@ class _LoginFormState extends State<LoginForm> {
                     ApplicationLoginState.loggedIn) {
                   emailTextController.clear();
                   passwordTextController.clear();
-                  Navigator.pushReplacementNamed(context, MainScreen.routeName);
+                  Navigator.pushReplacementNamed(
+                      context, CounterScreen.routeName);
                 }
               } else if (_applicationLogin.loginState ==
                       ApplicationLoginState.loggedIn ||
@@ -172,7 +173,7 @@ class _LoginFormState extends State<LoginForm> {
               });
               if (_applicationLogin.loginState ==
                   ApplicationLoginState.loggedInAnonymous) {
-                Navigator.pushNamed(context, MainScreen.routeName);
+                Navigator.pushNamed(context, CounterScreen.routeName);
                 _applicationLogin.showSnackBar(
                     context, 'Signed in as guest user');
               }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -167,6 +168,10 @@ class ApplicationState extends ChangeNotifier {
     }
   }
 
+  //TODO: Create a function to validate the email address, that is,
+  // it will cehck if the user has his/her email address validated and ask
+  //the user to validate their email.
+
   String? validateDisplayName(value) {
     if (value == null || value == '') {
       return 'Display name cannot be blank';
@@ -188,5 +193,17 @@ class ApplicationState extends ChangeNotifier {
         ? _isPasswordObscured = false
         : _isPasswordObscured = true;
     notifyListeners();
+  }
+
+// Database Function
+  Future<DocumentReference> addMessageToGuestBook(String message) {
+    if (_loginState != ApplicationLoginState.loggedIn) {
+      throw Exception('Must be loged in');
+    }
+    return FirebaseFirestore.instance.collection('questbook').add({
+      'text': message,
+      'time': DateTime.now().millisecondsSinceEpoch,
+      'userId': FirebaseAuth.instance.currentUser!.uid,
+    });
   }
 }
