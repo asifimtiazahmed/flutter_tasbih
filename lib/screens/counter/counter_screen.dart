@@ -151,10 +151,15 @@ class CounterScreenViewModel extends ChangeNotifier {
     _progressIndicator = retVal;
     notifyListeners();
   }
+
+  void saveCurrentDua() {
+    //TODO: Save current state into SharedPrefs and firebase
+  }
 }
 
 // DONE: change background color to cornSilk
 // DONE: import neumorphic package
+// TODO: Create folders in firebase such as feedback, playlist, dua list, current progress
 // TODO: import storage package to keep the count in memory SharedPreferences
 // TODO: Shift App bar to its own widget area
 // TODO: Create a column to incorporate the dua space, counter, button
