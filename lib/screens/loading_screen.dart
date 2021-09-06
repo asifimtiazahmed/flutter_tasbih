@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ultimate_tasbih_app/screens/login/forgot_password_screen.dart';
 import 'package:ultimate_tasbih_app/screens/login/login_screen.dart';
-import 'package:ultimate_tasbih_app/screens/counter/counter_screen.dart';
-import 'package:ultimate_tasbih_app/screens/register/register_screen.dart';
-import 'package:ultimate_tasbih_app/services/const.dart';
 import '../services/authentication.dart';
+import 'counter_screen/counter_screen.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({Key? key}) : super(key: key);

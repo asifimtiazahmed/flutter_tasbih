@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-import '../services/const.dart';
+import '../../../services/const.dart';
 
 class CircleCounterButton extends StatelessWidget {
   CircleCounterButton({required this.onPressed});
@@ -16,7 +16,7 @@ class CircleCounterButton extends StatelessWidget {
         boxShape: NeumorphicBoxShape.circle(),
         shadowDarkColor: liverDogs,
         shadowLightColor: fawn,
-        depth: 7,
+        depth: 5,
         lightSource: LightSource.topLeft,
         color: fawn,
       ),

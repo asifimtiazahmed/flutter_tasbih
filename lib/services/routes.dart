@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ultimate_tasbih_app/screens/counter_screen/counter_screen.dart';
 import 'package:ultimate_tasbih_app/screens/loading_screen.dart';
 import 'package:ultimate_tasbih_app/screens/login/forgot_password_screen.dart';
 import 'package:ultimate_tasbih_app/screens/login/login_screen.dart';
-import 'package:ultimate_tasbih_app/screens/counter/counter_screen.dart';
 import 'package:ultimate_tasbih_app/screens/register/register_screen.dart';
 
 class AppRoutes {
