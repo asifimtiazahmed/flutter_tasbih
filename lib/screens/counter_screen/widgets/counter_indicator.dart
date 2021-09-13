@@ -43,7 +43,7 @@ class CounterProgressIndicator extends StatelessWidget {
                 progressColor: liverDogs,
                 radius: this.heightAndWidth,
                 circularStrokeCap: CircularStrokeCap.round,
-                backgroundColor: fawn,
+                backgroundColor: fawn.withOpacity(0.7),
               ),
             ),
             Container(

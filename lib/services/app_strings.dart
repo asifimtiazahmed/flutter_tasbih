@@ -14,4 +14,8 @@ class AppStrings {
   //FONT BUTTON
   static const String FONT_BUTTON_INCREASE_TOOLTIP = 'Increase Font';
   static const String FONT_BUTTON_DECREASE_TOOLTIP = 'Decrease Font';
+
+  //TOGGLE SWITCH
+  static const String MY_DUA = "My Dua";
+  static const String SIMPLE = "Simple";
 }

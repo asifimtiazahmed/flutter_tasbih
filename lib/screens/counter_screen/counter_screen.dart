@@ -8,6 +8,8 @@ import 'package:ultimate_tasbih_app/services/authentication.dart';
 import 'package:provider/provider.dart';
 import 'package:ultimate_tasbih_app/widgets/appBar.dart';
 import 'package:ultimate_tasbih_app/widgets/main_menu_drawer.dart';
+import 'package:ultimate_tasbih_app/widgets/new_app_bar.dart';
+import 'package:ultimate_tasbih_app/widgets/slider_toggle.dart';
 import 'widgets/circle_counter.dart';
 import '../../services/const.dart';
 import 'widgets/dua_display_widget.dart';
@@ -18,14 +20,31 @@ class CounterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _applicationState = Provider.of<ApplicationState>(context);
+
     final mediaQuery = MediaQuery.of(context).size;
     return ChangeNotifierProvider(
       create: (_) => CounterScreenViewModel(),
       child: Consumer<CounterScreenViewModel>(
         builder: (context, vm, _) => SafeArea(
           child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(80.0),
+              child: TasbihAppBar(
+                globeTap: () {
+                  print('global tap');
+                },
+                libraryTap: () {
+                  print('library');
+                },
+                simpleOption: () {
+                  print('simple switch');
+                },
+                duaOption: () {
+                  print('dua option');
+                },
+              ),
+            ),
             endDrawer: MainDrawer(),
-            appBar: utAppBar,
             backgroundColor: cornSilk,
             body: SingleChildScrollView(
               child: Column(

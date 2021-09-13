@@ -1,5 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:ultimate_tasbih_app/screens/dua_entry_screen/dua_entry_screen.dart';
 import 'package:ultimate_tasbih_app/services/app_strings.dart';
 import 'package:ultimate_tasbih_app/services/authentication.dart';
 import 'package:ultimate_tasbih_app/services/const.dart';
@@ -39,20 +40,30 @@ class MainDrawer extends StatelessWidget {
               ),
               ListTile(
                 title: Text(
+                  'Dua add Screen',
+                  style: AppStyle.title.copyWith(color: kombuGreen),
+                ),
+                minLeadingWidth: 0.0,
+                trailing: Icon(Icons.account_circle,
+                    color: oliveGreen, size: iconSize),
+                onTap: () => onTap(context, 'Dua add Screen'),
+              ),
+              ListTile(
+                title: Text(
                   AppStrings.MENU_USER_PROFILE,
                   style: AppStyle.title.copyWith(color: kombuGreen),
                 ),
                 minLeadingWidth: 0.0,
                 trailing: Icon(Icons.account_circle,
                     color: oliveGreen, size: iconSize),
-                onTap: onTap(AppStrings.MENU_USER_PROFILE),
+                onTap: () => onTap(context, AppStrings.MENU_USER_PROFILE),
               ),
               ListTile(
                 title: Text(
                   AppStrings.MENU_VIBRATION,
                   style: AppStyle.title.copyWith(color: kombuGreen),
                 ),
-                onTap: onTap(AppStrings.MENU_VIBRATION),
+                onTap: () => onTap(context, AppStrings.MENU_VIBRATION),
                 trailing: Icon(Icons.vibration_outlined,
                     color: oliveGreen, size: iconSize),
               ),
@@ -63,14 +74,15 @@ class MainDrawer extends StatelessWidget {
                 ),
                 trailing: Icon(Icons.volume_up_outlined,
                     color: oliveGreen, size: iconSize),
-                onTap: onTap(AppStrings.MENU_SOUND),
+                onTap: () => onTap(context, AppStrings.MENU_SOUND),
               ),
               ListTile(
                 title: Text(
                   AppStrings.MENU_LEAVE_FEEDBACK,
                   style: AppStyle.title.copyWith(color: kombuGreen),
                 ),
-                onTap: this.onTap(AppStrings.MENU_LEAVE_FEEDBACK),
+                onTap: () =>
+                    this.onTap(context, AppStrings.MENU_LEAVE_FEEDBACK),
                 trailing: Icon(Icons.feedback_rounded,
                     color: oliveGreen, size: iconSize),
               ),
@@ -79,7 +91,7 @@ class MainDrawer extends StatelessWidget {
                   AppStrings.MENU_SUPPORT_US,
                   style: AppStyle.title.copyWith(color: kombuGreen),
                 ),
-                onTap: onTap(AppStrings.MENU_SUPPORT_US),
+                onTap: () => onTap(context, AppStrings.MENU_SUPPORT_US),
                 trailing:
                     Icon(Icons.credit_card, color: oliveGreen, size: iconSize),
               ),
@@ -88,7 +100,7 @@ class MainDrawer extends StatelessWidget {
                   AppStrings.MENU_LANGUAGE,
                   style: AppStyle.title.copyWith(color: kombuGreen),
                 ),
-                onTap: onTap(AppStrings.MENU_LANGUAGE),
+                onTap: () => onTap(context, AppStrings.MENU_LANGUAGE),
                 trailing: Icon(Icons.language_outlined,
                     color: oliveGreen, size: iconSize),
               ),
@@ -113,8 +125,10 @@ class MainDrawer extends StatelessWidget {
     );
   }
 
-  onTap(String value) {
+  onTap(context, String value) {
     switch (value) {
+      case 'Dua add Screen':
+        Navigator.pushNamed(context, DuaEntryScreen.routeName);
     }
   }
 }
