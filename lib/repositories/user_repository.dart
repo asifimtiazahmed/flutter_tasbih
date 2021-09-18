@@ -4,7 +4,7 @@ class UserRepository {
   late final FirebaseAuth _firebaseAuth;
 
   UserRepository({required FirebaseAuth firebaseAuth})
-      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
+      : _firebaseAuth = firebaseAuth;
 
   Future<void> signInWithCredentials(String email, String password) {
     return _firebaseAuth.signInWithEmailAndPassword(

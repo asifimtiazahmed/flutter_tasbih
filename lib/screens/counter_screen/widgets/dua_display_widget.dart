@@ -20,15 +20,9 @@ class PrayerDisplay extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
           child: Container(
-            width: this.width,
             height: this.height,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.transparent,
-              border: Border.all(color: kombuGreen, width: 2),
-            ),
-            child: Container(
-              padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(20),
+            child: Scrollbar(
               child: SingleChildScrollView(
                 child: Text(
                   this.duaText,
@@ -44,22 +38,38 @@ class PrayerDisplay extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          left: 30,
-          top: -4,
-          child: Container(
-            color: cornSilk,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Prayer',
-                style: TextStyle(
-                    backgroundColor: cornSilk,
-                    fontWeight: FontWeight.w800,
-                    fontSize: 20,
-                    color: kombuGreen),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: this.width / 3,
+                height: 2,
+                color: kombuGreen,
+                padding: EdgeInsets.symmetric(horizontal: 20),
               ),
-            ),
+              Container(
+                color: cornSilk,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Prayer',
+                    style: TextStyle(
+                        backgroundColor: cornSilk,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 20,
+                        color: kombuGreen),
+                  ),
+                ),
+              ),
+              Container(
+                width: this.width / 3,
+                height: 2,
+                color: kombuGreen,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+              ),
+            ],
           ),
         ),
         // Positioned(

@@ -9,18 +9,17 @@ class TasbihAppBar extends StatelessWidget {
       {Key? key,
       required this.globeTap,
       required this.libraryTap,
-      required this.duaOption,
-      required this.simpleOption})
+      required this.onChange})
       : super(key: key);
   final globeTap;
   final libraryTap;
-  final simpleOption;
-  final duaOption;
+  final onChange;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 60,
+      margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: [
           Row(
@@ -28,8 +27,7 @@ class TasbihAppBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SliderSwitch(
-                duaOption: duaOption,
-                simpleOption: simpleOption,
+                onChange: onChange,
               ),
               Container(height: 55, width: 1), //SPACER
               IconButton(

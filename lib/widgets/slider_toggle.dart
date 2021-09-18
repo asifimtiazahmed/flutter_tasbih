@@ -7,11 +7,9 @@ import 'package:ultimate_tasbih_app/services/styles.dart';
 class SliderSwitch extends StatelessWidget {
   const SliderSwitch({
     Key? key,
-    required this.simpleOption,
-    required this.duaOption,
+    required this.onChange,
   }) : super(key: key);
-  final Function simpleOption;
-  final Function duaOption;
+  final Function onChange;
 
   @override
   Widget build(BuildContext context) {
@@ -21,14 +19,26 @@ class SliderSwitch extends StatelessWidget {
         builder: (context, svm, _) {
           return GestureDetector(
             onTap: () {
-              svm.toggleSwitch(
-                  simpleOption: this.simpleOption,
-                  duaOption: this
-                      .duaOption); //changes the selected bool (simple, myDua)
-            },
+              //This will Execute the function pointer onChange with the String value
+              svm.toggleSwitch();
+              this.onChange(svm.getCurrentState());
+            }, //changes the selected bool (simple, myDua)
             onHorizontalDragEnd: (value) {
-              svm.toggleSwitch(
-                  simpleOption: this.simpleOption, duaOption: this.duaOption);
+              if (value.primaryVelocity! >= 0 &&
+                  svm.getCurrentState() == 'dua') {
+                print('$value cancelling once already dua selected');
+              } else if (value.primaryVelocity! <= 0 &&
+                  svm.getCurrentState() == 'simple') {
+                print('$value cancelling once already simple is selected');
+              } else if (value.primaryVelocity! <= 0 &&
+                  svm.getCurrentState() != 'simple') {
+                svm.toggleSwitch();
+                this.onChange(svm.getCurrentState());
+              } else if (value.primaryVelocity! >= 0 &&
+                  svm.getCurrentState() != 'dua') {
+                svm.toggleSwitch();
+                this.onChange(svm.getCurrentState());
+              }
             },
             child: Stack(
               children: [
@@ -110,18 +120,22 @@ class SliderViewModel extends ChangeNotifier {
   bool get getMyDua => _myDua;
   double get getSliderMarginSwitch => _sliderMarginSwitch;
 
-  void toggleSwitch(
-      {required Function simpleOption, required Function duaOption}) {
+  String getCurrentState() {
+    if (_simple) {
+      return 'simple';
+    } else
+      return 'dua';
+  }
+
+  void toggleSwitch() {
     if (_simple) {
       _simple = false;
       _myDua = true;
       _sliderMarginSwitch = 1;
-      duaOption();
     } else {
       _simple = true;
       _myDua = false;
       _sliderMarginSwitch = 0;
-      simpleOption();
     }
     notifyListeners();
   }

@@ -18,4 +18,7 @@ class AppStrings {
   //TOGGLE SWITCH
   static const String MY_DUA = "My Dua";
   static const String SIMPLE = "Simple";
+
+  //COUNTER SCENE
+  static const String TASBIH_TITLE = "Tasbih title";
 }
