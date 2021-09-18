@@ -36,10 +36,11 @@ class CounterScreen extends StatelessWidget {
                     print('global tap');
                   },
                   libraryTap: () {
-                    print('library');
+                    print('library Test');
+                    vm.tasbihListProcess(vm.testTasbihList);
                   },
                   onChange: (String value) {
-                    print(value);
+                    vm.toggleSwitch(value);
                   },
                 ),
               ),
@@ -51,37 +52,54 @@ class CounterScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: Center(
-                        child: Text(
-                          AppStrings.TASBIH_TITLE,
-                          style: AppStyle.title.copyWith(color: kombuGreen),
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Text('Tasbih List Slider'),
-                    ),
+                    //TASBIH TITLE
+                    vm.counterStateIsSimple
+                        ? Container()
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Center(
+                              child: Text(
+                                vm.tasbihTitle,
+                                style:
+                                    AppStyle.title.copyWith(color: kombuGreen),
+                              ),
+                            ),
+                          ),
+                    //TASBIH SLIDER
+                    vm.counterStateIsSimple
+                        ? Container()
+                        : vm.isTasbih
+                            ? Center(
+                                child: Text('Tasbih List Slider'),
+                              )
+                            : Container(),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: CounterProgressIndicator(
-                          isOnlyIndicator: vm.isOnlyCounter,
+                          isOnlyIndicator: vm.counterStateIsSimple,
                           currentValue: vm.getCounterValue(),
                           totalValue: vm.getTotalCountValue(),
                           progressIndicator: vm.getProgressIndicator(),
                           heightAndWidth: 200),
                     ),
-                    PrayerDisplay(
-                      width: mediaQuery.width * 0.85,
-                      height: mediaQuery.height * 0.20,
-                      duaText:
-                          'lorem ipsum dolor emmet, this and that and other filler text just to cehck how things are going here and tehe and if there are at all any kind of bad overflow, and also I want to check the scrolling option, so all of it shoudl reall work out fien',
+                    //PRAYER DISPLAY TEXT
+                    Visibility(
+                      visible: !vm.counterStateIsSimple,
+                      child: PrayerDisplay(
+                        width: mediaQuery.width * 0.85,
+                        height: mediaQuery.height * 0.20,
+                        duaText: vm.prayerText,
+                      ),
                     ),
+                    vm.counterStateIsSimple
+                        ? SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.35,
+                          )
+                        : Container(),
                     Padding(
                       padding: EdgeInsets.only(top: 18.0),
                       child: Container(
-                        height: 90,
+                        height: vm.counterStateIsSimple ? 90 : 190,
                         width: 90,
                         child: CircleCounterButton(
                           onPressed: () {
@@ -105,6 +123,17 @@ class CounterScreenViewModel extends ChangeNotifier {
   CounterScreenViewModel() {
     init();
   }
+  bool _isSimple = true;
+  bool _isDua = false;
+  bool _isTasbih = false;
+  String _tasbihTitle = AppStrings.TASBIH_TITLE;
+  String _prayerText =
+      'lorem ipsum dolor emmet, this and that and other filler text just to cehck how things are going here and tehe and if there are at all any kind of bad overflow, and also I want to check the scrolling option, so all of it shoudl reall work out fien';
+  Dua currentDua = Dua(
+    description: '',
+    title: '',
+    totalCount: 0,
+  );
 
   int _currentCountValue = 0;
   int _totalCountValue = 0;
@@ -132,23 +161,108 @@ class CounterScreenViewModel extends ChangeNotifier {
           'Qulillahumma Maalikal Mulki, Tu\'til mulka Manta shaau, wa Tanzieul Mulka mim manta saau, wa tu\'ijju Manta shaau biaa dikal khair innaka\'ala kulli shai\'ien Kadir Tulijju laila finna haari watulijjunna... ',
       totalCount: 7);
 
+  //GETTERS
+  //=========
+  int getCounterValue() => _currentCountValue;
+  int getTotalCountValue() => _totalCountValue;
+  double getProgressIndicator() => _progressIndicator;
+  bool get counterStateIsSimple => _isSimple;
+  String get tasbihTitle => _tasbihTitle;
+  String get prayerText => _prayerText;
+  bool get isTasbih => _isTasbih;
+
   init() {
     //TODO: get stored counter values, and last dua that was there
-    _currentCountValue = 1;
+    //We want to initialize from shared prefs, for Simple, or for Dua
+    _currentCountValue = 0;
     _totalCountValue = 100;
     _progressIndicator = 0.0;
     isOnlyCounter = true;
   }
 
-  setCounter(int value) => _currentCountValue = value;
+  void duaProcess(Dua dua) {}
 
-  int getCounterValue() => _currentCountValue;
-  int getTotalCountValue() => _totalCountValue;
-  double getProgressIndicator() => _progressIndicator;
+  void tasbihListProcess(TasbihList list) {
+    int _totalIndex = 0;
+    int _currentIndex = 0;
+    _isTasbih = true;
+    _totalIndex = list.listOfDua.length; // Total number of Dua in the list
+    //Loop through the current list of dua to find the last unfinished dua
+
+    for (var x = 0; x < _totalIndex; x++) {
+      if (list.listOfDua[x].lastCount < list.listOfDua[x].totalCount &&
+          _currentIndex != list.listOfDua.length) {
+        _currentIndex = x; //Selecting the first unfinished dua in the list
+        print('current index: $_currentIndex');
+        break;
+      }
+    }
+    //Set the current golbal Dua object as the one in the list
+    this.currentDua = list.listOfDua[_currentIndex];
+    //Populate the Counter: //This is more like init
+    populateCounter(); //This will add the counter increments  to the dua
+    print(
+        'populated the counter, total count of dua ${list.listOfDua.length} & current idex is $_currentIndex');
+    //Update the counter'
+    //TODO: THIS IS WHERE YOU PROMPT TO RESET COUNTER (Maybe Reset counter / Select another Dua)
+    if (_currentIndex == list.listOfDua.length - 1) {
+      print('All the dua in the list has been counted');
+      print('resetting the tasbih');
+      resetTasbih();
+    }
+  }
+
+  //This function will populate the whole counter screen
+  void populateCounter() {
+    _tasbihTitle = currentDua.title;
+    _totalCountValue = currentDua.totalCount;
+    _currentCountValue = currentDua.lastCount;
+    _prayerText = currentDua.description;
+    notifyListeners(); //refreshes
+  }
+
+//This just updates the current cua
+  void updateDua() {
+    if (currentDua.lastCount < _totalCountValue) {
+      this.currentDua.lastCount = _currentCountValue;
+    }
+    if (currentDua.lastCount == _totalCountValue) {
+      tasbihListProcess(
+          testTasbihList); //ERASE ME LATER This restarts the process
+    }
+  }
+
+  void resetTasbih() {
+    for (var i in testTasbihList.listOfDua) {
+      i.lastCount = 0;
+    }
+  }
+
+  void resetDua() {
+    currentDua.lastCount = 0;
+  }
+
+  set setCounter(int value) => _currentCountValue = value;
+
+  //TOGGLE SWITCH IN THE APP BAR
+  void toggleSwitch(String value) {
+    //This function is linked to the toggle switch and will change accordingly
+    switch (value) {
+      case ('dua'):
+        _isDua = true;
+        _isSimple = false;
+        break;
+      case ('simple'):
+        _isSimple = true;
+        _isDua = false;
+    }
+    notifyListeners();
+  }
 
   void increment() {
     _currentCountValue++;
-    updateProgressIndicator();
+    if (_isDua) updateDua(); //ONLY UPDATE Dua if we are in Dua mode
+    updateProgressIndicator(); //ALSO A FAILSAFE TO RESET THE INDICATOR SO NOT TO GET UNEXPECTED BEHAVIOUR
     notifyListeners();
   }
 
@@ -164,7 +278,6 @@ class CounterScreenViewModel extends ChangeNotifier {
     } else if (_currentCountValue / _totalCountValue <= 1 &&
         _totalCountValue != 0) {
       retVal = _currentCountValue / _totalCountValue;
-      print(_progressIndicator);
     } else if (_currentCountValue >= _totalCountValue) {
       retVal = 1;
     }

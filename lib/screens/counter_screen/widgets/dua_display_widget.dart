@@ -24,15 +24,19 @@ class PrayerDisplay extends StatelessWidget {
             padding: EdgeInsets.all(20),
             child: Scrollbar(
               child: SingleChildScrollView(
-                child: Text(
-                  this.duaText,
-                  style: AppStyle.body.copyWith(
-                      backgroundColor: cornSilk,
-                      fontWeight: FontWeight.w800,
-                      color: kombuGreen,
-                      wordSpacing: 1.5,
-                      letterSpacing: 1,
-                      height: 1.5),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    this.duaText,
+                    textAlign: TextAlign.justify,
+                    style: AppStyle.body.copyWith(
+                        backgroundColor: cornSilk,
+                        fontWeight: FontWeight.w800,
+                        color: kombuGreen,
+                        wordSpacing: 1.5,
+                        letterSpacing: 1,
+                        height: 1.5),
+                  ),
                 ),
               ),
             ),
