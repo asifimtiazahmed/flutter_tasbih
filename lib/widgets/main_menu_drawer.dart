@@ -1,6 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:ultimate_tasbih_app/screens/dua_entry_screen/dua_entry_screen.dart';
+import 'package:ultimate_tasbih_app/screens/dua_entry_screen/dua_library_screen.dart';
 import 'package:ultimate_tasbih_app/services/app_strings.dart';
 import 'package:ultimate_tasbih_app/services/authentication.dart';
 import 'package:ultimate_tasbih_app/services/const.dart';

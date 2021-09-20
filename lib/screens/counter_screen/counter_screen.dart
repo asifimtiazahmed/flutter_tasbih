@@ -123,12 +123,13 @@ class CounterScreenViewModel extends ChangeNotifier {
   CounterScreenViewModel() {
     init();
   }
+  //ALL FIELDS
+  //================================================
   bool _isSimple = true;
   bool _isDua = false;
   bool _isTasbih = false;
   String _tasbihTitle = AppStrings.TASBIH_TITLE;
-  String _prayerText =
-      'lorem ipsum dolor emmet, this and that and other filler text just to cehck how things are going here and tehe and if there are at all any kind of bad overflow, and also I want to check the scrolling option, so all of it shoudl reall work out fien';
+  String _prayerText = AppStrings.TEST_DUA;
   Dua currentDua = Dua(
     description: '',
     title: '',
@@ -140,6 +141,9 @@ class CounterScreenViewModel extends ChangeNotifier {
   double _progressIndicator = 0.0;
   bool isOnlyCounter =
       true; //This will determine if the "Out of" is being shown or not
+
+  // DUMMY TASBIH LIST FOR TESTING
+  //=================================
   final TasbihList testTasbihList = TasbihList(
       tasbihListTitle: '4 Dua for every prayer',
       listOfDua: [
@@ -154,7 +158,8 @@ class CounterScreenViewModel extends ChangeNotifier {
       ],
       description:
           'The Prophet(PBUH) said: His sins will be forgiven even if they are like the foam of the sea. (Sahih Muslim 597)');
-
+// DUMMY DUA FOR TESTING
+  //=================================
   final Dua testDua = Dua(
       title: 'All Prayers Tasbih',
       description:
@@ -162,7 +167,7 @@ class CounterScreenViewModel extends ChangeNotifier {
       totalCount: 7);
 
   //GETTERS
-  //=========
+  //=========================================
   int getCounterValue() => _currentCountValue;
   int getTotalCountValue() => _totalCountValue;
   double getProgressIndicator() => _progressIndicator;
@@ -171,6 +176,8 @@ class CounterScreenViewModel extends ChangeNotifier {
   String get prayerText => _prayerText;
   bool get isTasbih => _isTasbih;
 
+  //INITIALIZATION
+  //=====================================
   init() {
     //TODO: get stored counter values, and last dua that was there
     //We want to initialize from shared prefs, for Simple, or for Dua
@@ -180,8 +187,12 @@ class CounterScreenViewModel extends ChangeNotifier {
     isOnlyCounter = true;
   }
 
+// DUA SPECIFIC METHODS
+  //===================================
   void duaProcess(Dua dua) {}
 
+  //TASBIH LIST SPECIFIC METHODS
+  //=======================================
   void tasbihListProcess(TasbihList list) {
     int _totalIndex = 0;
     int _currentIndex = 0;

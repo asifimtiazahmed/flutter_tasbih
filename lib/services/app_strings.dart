@@ -21,4 +21,10 @@ class AppStrings {
 
   //COUNTER SCENE
   static const String TASBIH_TITLE = "Tasbih title";
+  static const String TEST_DUA = 'lorem ipsum dolor emmet, this and that and other filler text just to cehck how things are going here and tehe and if there are at all any kind of bad overflow, and also I want to check the scrolling option, so all of it shoudl reall work out fien';
+
+    //DUA ENTRY SCENE
+    static const String BTN_DUA = "Dua";
+    static const String BTN_TASBIH_LIST = "Tasbih List";
+
 }
