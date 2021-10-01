@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:ultimate_tasbih_app/services/const.dart';
 
@@ -25,26 +24,13 @@ class CounterProgressIndicator extends StatelessWidget {
       child: Center(
         child: Stack(
           children: [
-            Neumorphic(
-              style: NeumorphicStyle(
-                  shape: NeumorphicShape.convex,
-                  boxShape:
-                      NeumorphicBoxShape.roundRect(BorderRadius.circular(200)),
-                  depth: 7,
-                  lightSource: LightSource.top,
-                  shadowLightColor: fawn.withOpacity(0.5),
-                  shadowDarkColor: liverDogs.withOpacity(0.5),
-                  shadowDarkColorEmboss: kombuGreen,
-                  shadowLightColorEmboss: oliveGreen,
-                  color: Colors.transparent),
-              child: CircularPercentIndicator(
-                percent: this.progressIndicator,
-                lineWidth: 15,
-                progressColor: liverDogs,
-                radius: this.heightAndWidth,
-                circularStrokeCap: CircularStrokeCap.round,
-                backgroundColor: fawn.withOpacity(0.7),
-              ),
+            CircularPercentIndicator(
+              percent: this.progressIndicator,
+              lineWidth: 15,
+              progressColor: liverDogs,
+              radius: this.heightAndWidth,
+              circularStrokeCap: CircularStrokeCap.round,
+              backgroundColor: fawn.withOpacity(0.7),
             ),
             Container(
               width: heightAndWidth,

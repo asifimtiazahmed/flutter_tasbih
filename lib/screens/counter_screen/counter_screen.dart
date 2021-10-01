@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
 import 'package:ultimate_tasbih_app/models/dua.dart';
 import 'package:ultimate_tasbih_app/models/tasbih_list.dart';
 import 'package:ultimate_tasbih_app/screens/counter_screen/widgets/counter_indicator.dart';
