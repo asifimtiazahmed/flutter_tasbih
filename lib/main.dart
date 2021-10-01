@@ -22,10 +22,11 @@ class MyApp extends StatelessWidget {
           title: 'Ultimate Tasbih',
           theme: ThemeData(
               primaryColor: kombuGreen,
-              accentColor: oliveGreen,
               shadowColor: kombuGreen,
               highlightColor: fawn,
-              fontFamily: GoogleFonts.didactGothic().fontFamily),
+              fontFamily: GoogleFonts.didactGothic().fontFamily,
+              colorScheme:
+                  ColorScheme.fromSwatch().copyWith(secondary: oliveGreen)),
           onGenerateRoute: _appRoutes.onGenerateRoute,
         ),
       ),
