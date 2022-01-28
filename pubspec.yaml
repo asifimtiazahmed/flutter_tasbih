@@ -27,19 +27,20 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.3
+  cupertino_icons: ^1.0.4
   #flutter_neumorphic: ^3.1.0
-  google_fonts: ^2.1.0
+  google_fonts: ^2.2.0
   equatable: ^2.0.3
-  firebase_core: ^1.5.0 #https://pub.dev/packages/firebase_core
-  firebase_auth: ^3.0.2 #https://pub.dev/packages/firebase_auth
-  provider: ^6.0.0
-  firebase_analytics: ^8.3.0
-  fluentui_system_icons: ^1.1.136 #https://pub.dev/packages/fluentui_system_icons/
+  firebase_core: ^1.11.0 #https://pub.dev/packages/firebase_core
+  firebase_auth: ^3.3.5 #https://pub.dev/packages/firebase_auth
+  provider: ^6.0.2
+  firebase_analytics: ^9.1.0
+  fluentui_system_icons: ^1.1.156 #https://pub.dev/packages/fluentui_system_icons/
   persistent_bottom_nav_bar: ^4.0.2 #https://pub.dev/packages/persistent_bottom_nav_bar
-  cloud_firestore: ^2.5.1 #https://pub.dev/packages/cloud_firestore/install
-  shared_preferences: ^2.0.7 #https://pub.dev/packages/shared_preferences
-  percent_indicator: ^3.0.1 #https://pub.dev/packages/percent_indicator
+  cloud_firestore: ^3.1.6 #https://pub.dev/packages/cloud_firestore/install
+  shared_preferences: ^2.0.12 #https://pub.dev/packages/shared_preferences
+  percent_indicator: ^4.0.0 #https://pub.dev/packages/percent_indicator
+  get_it: ^7.2.0 #https://pub.dev/packages/get_it/install
 
 
 

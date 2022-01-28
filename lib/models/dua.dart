@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-
 class Dua {
   final String title; //Name of the Dua
   final String description; //The actual dua goes here
